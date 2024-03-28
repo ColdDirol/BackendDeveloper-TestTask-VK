@@ -69,5 +69,5 @@ GET http://localhost:8080/advertisement/1
 Authorization: {{token}}
 
 ###
-DELETE http://localhost:8080/advertisement/16
+DELETE http://localhost:8080/advertisement/1
 Authorization: {{token}}
