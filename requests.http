@@ -1,0 +1,73 @@
+#users:
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6ImVtYWlsMkBlbWFpbC5jb20iLCJleHAiOjE3MTE2NTQ0NDV9.z/+UdVvFwdqeLjjDiMW2qWMh4coU6JroAf+2fgax1xQ=
+#auth:
+###
+POST http://localhost:8080/registration
+Content-Type: application/json
+
+{
+  "login": "email2@email.com",
+  "password": "password"
+}
+
+###
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "login": "email2@email.com",
+  "password": "password"
+}
+
+
+
+###
+#advertisement:
+POST http://localhost:8080/advertisement
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "title": "Car",
+  "description": "New car",
+  "cost": 300,
+  "image_address": "gora/reka/car.png"
+}
+
+###
+GET http://localhost:8080/advertisement/sortByDate/DESC/1
+Authorization: {{token}}
+
+###
+GET http://localhost:8080/advertisement/sortByDate/ASC/1
+Authorization: {{token}}
+
+###
+GET http://localhost:8080/advertisement/sortByCost/DESC/1
+Authorization: {{token}}
+
+###
+GET http://localhost:8080/advertisement/sortByCost/ASC/1
+Authorization: {{token}}
+
+###
+PUT http://localhost:8080/advertisement
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "id": 1,
+  "user_id": 1,
+  "title": "Car",
+  "description": "New car",
+  "cost": 300,
+  "image_address": "gora/reka/car.png"
+}
+
+###
+GET http://localhost:8080/advertisement/1
+Authorization: {{token}}
+
+###
+DELETE http://localhost:8080/advertisement/16
+Authorization: {{token}}

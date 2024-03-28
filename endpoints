@@ -1,0 +1,17 @@
+POST /advertisement
+GET /advertisement/{id}
+GET /advertisement/sortByDate/DESC/{pageNum}
+GET /advertisement/sortByDate/ASC/{pageNum}
+GET /advertisement/sortByCost/DESC/{pageNum}
+GET /advertisement/sortByCOST/ASC/{pageNum}
+PUT /advertisement
+DELETE /advertisement/{id}
+
+advertisements
+ID
+user_id
+title
+description
+cost
+date
+image_address
