@@ -27,3 +27,105 @@ docker-compose up --build app
 {"time":"2024-03-28T19:33:22.652487305Z","level":"INFO","msg":"PostgreSQL is up - executing command"}
 {"time":"2024-03-28T19:33:22.800036343Z","level":"INFO","msg":"Server start listening on port: ","port":"8080"}
 ```
+## Навигация
+* [Примеры запросов](https://github.com/ColdDirol/BackendDeveloper-TestTask-VK/blob/main/requests.http)
+* [JWT реализация](https://github.com/ColdDirol/BackendDeveloper-TestTask-VK/blob/main/pkg/auth/jwt/jwt.go)
+* [Конфигурационный файл](https://github.com/ColdDirol/BackendDeveloper-TestTask-VK/blob/main/config.json)
+
+## Методы:
+```http
+POST GET http://localhost:8080/login
+POST GET http://localhost:8080/registration
+
+POST /advertisement
+GET /advertisement/{id}
+GET /advertisement/sortByDate/DESC/{pageNum}
+GET /advertisement/sortByDate/ASC/{pageNum}
+GET /advertisement/sortByCost/DESC/{pageNum}
+GET /advertisement/sortByCOST/ASC/{pageNum}
+PUT /advertisement
+DELETE /advertisement/{id}
+```
+[использование](https://github.com/ColdDirol/BackendDeveloper-TestTask-VK/blob/main/requests.http)
+
+`id` - id объекта таблицы advertisements
+
+`pageNum` - страница, содержащая N эементов (где N - `page_elements` из [файла конфигурации](https://github.com/ColdDirol/BackendDeveloper-TestTask-VK/blob/main/config.json))
+
+## Правила конфигурации
+### Конфигурационный файл
+```json
+{
+  "env": "dev",
+  "page_elements": 10,
+  "http_server": {
+    "host": "0.0.0.0",
+    "port": "8080"
+  },
+  "auth": {
+    "secret_key": "secret_key",
+    "salt": "salt"
+  },
+  "database": {
+    "host": "postgres",
+    "port": "5432",
+    "username": "postgres",
+    "password": "postgres",
+    "db_name": "postgres",
+    "ssl_mode": "disable"
+  }
+}
+```
+
+#### ENV:
+В переменную env можно установить значения: `local`, `dev`, `prod`.
+```json
+"env": "dev"
+```
+От значения зависит уровень и способ логирования: `local` - уровень логирования - Debug, `dev` - уровень логирования - Debug, `prod` - уровень огирования - Info.
+
+#### PAGE_ELEMENTS:
+Переменная page_elements должно содержать целое неотрицательное число - количество элементов, которые вмещает страница (по умолчанию 10).
+```json
+"page_elements": 10
+```
+
+#### HTTP_SERVER:
+```json
+"http_server": {
+  "host": "0.0.0.0",
+  "port": "8080"
+}
+```
+`host` - хост адреса, на котором поднимается сервер (`localhost` для локального запуска, `0.0.0.0` для запуска в докере)
+
+`port` - порт адреса, на котором поднимается сервер
+
+#### AUTH:
+```json
+"auth": {
+  "secret_key": "secret_key",
+  "salt": "salt",
+  "secure_mode": "secure"
+}
+```
+`secret_key` - secret key для составления jwt токена
+
+#### DATABASE:
+```json
+"database": {
+  "host": "db",
+  "port": "5432",
+  "username": "postgres",
+  "password": "postgres",
+  "db_name": "postgres",
+  "ssl_mode": "disable"
+}
+```
+`host` - хост, на котором расположена база данных (`localhost` для локального запуска, `db` для запуска в докере)
+
+`post` - порт базы данных
+
+`username`, `password`, `db_name` - данные к базе данных
+
+`ssl_mode` - протокол шифрования: `disable` - не используется
